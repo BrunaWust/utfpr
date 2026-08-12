@@ -42,31 +42,89 @@ html, body {
 /* ── floating bees ── */
 .bee {
   position: fixed;
-  font-size: 20px;
+  font-size: 42px;
   pointer-events: none;
   z-index: 1;
+  opacity: 0.75;
   animation: fly-bee linear infinite;
-  opacity: 0.55;
+  filter: drop-shadow(0 0 5px rgba(245, 200, 0, 0.35));
 }
-.bee:nth-child(1) { font-size:16px; top:8%; left:5%;  animation-duration:18s; animation-delay:0s; }
-.bee:nth-child(2) { font-size:22px; top:20%; right:8%; animation-duration:24s; animation-delay:-6s; }
-.bee:nth-child(3) { font-size:14px; top:55%; left:3%;  animation-duration:20s; animation-delay:-10s; }
-.bee:nth-child(4) { font-size:18px; top:75%; right:5%; animation-duration:22s; animation-delay:-3s; }
-.bee:nth-child(5) { font-size:12px; top:40%; left:90%; animation-duration:16s; animation-delay:-8s; }
 
+/* posições e tamanhos */
+.bee:nth-child(1) {
+  font-size: 48px;
+  top: 8%;
+  left: 5%;
+  animation-duration: 14s;
+  animation-delay: 0s;
+}
+
+.bee:nth-child(2) {
+  font-size: 38px;
+  top: 20%;
+  right: 8%;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.bee:nth-child(3) {
+  font-size: 52px;
+  top: 55%;
+  left: 3%;
+  animation-duration: 16s;
+  animation-delay: -8s;
+}
+
+.bee:nth-child(4) {
+  font-size: 44px;
+  top: 75%;
+  right: 5%;
+  animation-duration: 20s;
+  animation-delay: -3s;
+}
+
+.bee:nth-child(5) {
+  font-size: 36px;
+  top: 40%;
+  left: 90%;
+  animation-duration: 13s;
+  animation-delay: -6s;
+}
+
+/* voo das abelhas */
 @keyframes fly-bee {
-  0%   { transform: translate(0,0)   rotate(-10deg); }
-  20%  { transform: translate(18px,-22px) rotate(8deg); }
-  40%  { transform: translate(-10px,-40px) rotate(-5deg); }
-  60%  { transform: translate(25px,-15px) rotate(12deg); }
-  80%  { transform: translate(-8px, 10px) rotate(-8deg); }
-  100% { transform: translate(0,0)   rotate(-10deg); }
-}
+  0% {
+    transform: translate(0, 0) rotate(-12deg);
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .bee { animation: none; }
-}
+  15% {
+    transform: translate(80px, -50px) rotate(15deg);
+  }
 
+  30% {
+    transform: translate(150px, 30px) rotate(-8deg);
+  }
+
+  45% {
+    transform: translate(80px, 100px) rotate(18deg);
+  }
+
+  60% {
+    transform: translate(-40px, 70px) rotate(-15deg);
+  }
+
+  75% {
+    transform: translate(-100px, -20px) rotate(10deg);
+  }
+
+  90% {
+    transform: translate(-40px, -80px) rotate(-5deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(-12deg);
+  }
+}
 /* ── layout ── */
 .wrap {
   position: relative; z-index: 2;
@@ -396,7 +454,7 @@ footer {
       <li>
         <span class="k">Orientador</span>
         <span class="v">
-          <a href="http://lattes.cnpq.br/3343422205289088" target="_blank" rel="noopener">Prof. Dr. Laercio Sartor ↗</a>
+          <a href="http://lattes.cnpq.br/8250309915750628" target="_blank" rel="noopener">Prof. Dr. Laercio Ricardo Sartor ↗</a>
         </span>
       </li>
     </ul>
@@ -411,16 +469,16 @@ footer {
 
 <script>
 const tracks = [
-  "How You Remind Me · Nickelback",
-  "Photograph · Nickelback",
-  "Burn It to the Ground · Nickelback",
-  "Far Away · Nickelback",
-  "Someday · Nickelback",
-  "Animals · Nickelback",
-  "Rockstar · Nickelback",
-  "If Today Was Your Last Day · Nickelback",
-  "Hero · Chad Kroeger",
-  "When We Stand Together · Nickelback",
+  "Stressed Out · Twenty One Pilots",
+  "Heathens · Twenty One Pilots",
+  "Ride · Twenty One Pilots",
+  "Chlorine · Twenty One Pilots",
+  "Car Radio · Twenty One Pilots",
+  "Tear in My Heart · Twenty One Pilots",
+  "The Judge · Twenty One Pilots",
+  "Holding On to You · Twenty One Pilots",
+  "Jumpsuit · Twenty One Pilots",
+  "My Blood · Twenty One Pilots",
 ];
 
 function pickTrack() {
