@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruna Gabriele Wüst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0D0D0D;
+  --black-2: #181818;
+  --black-3: #222222;
+  --yellow: #F5C800;
+  --yellow-soft: #F5C80022;
+  --yellow-mid: #F5C80055;
+  --white: #F0EDE6;
+  --gray: #888880;
+  --gray-soft: #555550;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── honeycomb background ── */
+.hex-bg {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpolygon points='28,2 54,16 54,44 28,58 2,44 2,16' fill='none' stroke='%23F5C800' stroke-width='1'/%3E%3Cpolygon points='28,52 54,66 54,94 28,108 2,94 2,66' fill='none' stroke='%23F5C800' stroke-width='1'/%3E%3Cpolygon points='0,27 26,13 26,41 0,55' fill='none' stroke='%23F5C800' stroke-width='1'/%3E%3Cpolygon points='56,27 82,13 82,41 56,55' fill='none' stroke='%23F5C800' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 100px;
+}
+
+/* ── floating bees ── */
+.bee {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 1;
+  animation: fly-bee linear infinite;
+  opacity: 0.55;
+}
+.bee:nth-child(1) { font-size:16px; top:8%; left:5%;  animation-duration:18s; animation-delay:0s; }
+.bee:nth-child(2) { font-size:22px; top:20%; right:8%; animation-duration:24s; animation-delay:-6s; }
+.bee:nth-child(3) { font-size:14px; top:55%; left:3%;  animation-duration:20s; animation-delay:-10s; }
+.bee:nth-child(4) { font-size:18px; top:75%; right:5%; animation-duration:22s; animation-delay:-3s; }
+.bee:nth-child(5) { font-size:12px; top:40%; left:90%; animation-duration:16s; animation-delay:-8s; }
+
+@keyframes fly-bee {
+  0%   { transform: translate(0,0)   rotate(-10deg); }
+  20%  { transform: translate(18px,-22px) rotate(8deg); }
+  40%  { transform: translate(-10px,-40px) rotate(-5deg); }
+  60%  { transform: translate(25px,-15px) rotate(12deg); }
+  80%  { transform: translate(-8px, 10px) rotate(-8deg); }
+  100% { transform: translate(0,0)   rotate(-10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bee { animation: none; }
+}
+
+/* ── layout ── */
+.wrap {
+  position: relative; z-index: 2;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 48px 20px;
+}
+
+.card {
+  width: 100%; max-width: 440px;
+}
+
+/* ── coords ── */
+.coords {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.coords::before, .coords::after {
+  content: ""; height: 1px; width: 24px;
+  background: var(--gray-soft);
+}
+
+/* ── now playing ── */
+.now-playing {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gray);
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.bars {
+  display: flex; align-items: flex-end; gap: 2px; height: 12px;
+}
+.bars span {
+  width: 2.5px;
+  background: var(--yellow);
+  display: inline-block;
+  border-radius: 1px;
+  animation: bar 0.9s ease-in-out infinite;
+}
+.bars span:nth-child(1) { animation-delay: -0.8s; }
+.bars span:nth-child(2) { animation-delay: -0.4s; }
+.bars span:nth-child(3) { animation-delay: -0.1s; }
+@keyframes bar {
+  0%, 100% { height: 3px; }
+  50% { height: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bars span { animation: none; height: 6px; }
+}
+.np-track { color: var(--white); font-weight: 700; }
+.np-sep { color: var(--gray-soft); }
+
+/* ── name ── */
+.name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 8vw, 42px);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.name-accent { color: var(--yellow); }
+
+/* ── role ── */
+.role {
+  font-family: 'Space Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--yellow);
+  margin-bottom: 20px;
+}
+
+/* ── bio ── */
+.bio {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #AAA89E;
+  text-align: center;
+  max-width: 360px;
+  margin: 0 auto 22px;
+}
+
+/* ── tags ── */
+.tags {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 7px; margin-bottom: 38px;
+}
+.tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
+  border: 1px solid var(--yellow-mid);
+  border-radius: 2px;
+  padding: 4px 11px;
+  background: var(--yellow-soft);
+}
+
+/* ── section label ── */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 12px;
+  padding-left: 2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label::after {
+  content: ""; flex: 1; height: 1px; background: var(--black-3);
+}
+
+/* ── links ── */
+.links { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+
+.links a {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  background: var(--black-2);
+  border: 1px solid #2A2A2A;
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--white);
+  position: relative;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.links a:hover, .links a:focus-visible {
+  border-color: var(--yellow);
+  background: var(--black-3);
+  transform: translateX(4px);
+  outline: none;
+}
+.links a:active { transform: translateX(4px) scale(0.99); }
+
+.marker {
+  flex: 0 0 auto;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray);
+  background: var(--black-3);
+  border-radius: 4px;
+  border: 1px solid #2A2A2A;
+  transition: color .18s, border-color .18s;
+}
+.links a:hover .marker {
+  color: var(--yellow);
+  border-color: var(--yellow-mid);
+}
+
+.link-text { flex: 1; min-width: 0; }
+.link-label {
+  font-weight: 600;
+  font-size: 14.5px;
+  display: block;
+  color: var(--white);
+}
+.link-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  color: var(--gray);
+  display: block;
+  margin-top: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.arrow {
+  font-family: 'Space Mono', monospace;
+  color: var(--gray-soft);
+  flex: 0 0 auto;
+  font-size: 14px;
+  transition: color .18s, transform .18s;
+}
+.links a:hover .arrow {
+  color: var(--yellow);
+  transform: translateX(3px);
+}
+
+/* ── info box ── */
+.info-box {
+  list-style: none;
+  margin-bottom: 36px;
+  padding: 16px;
+  background: var(--black-2);
+  border: 1px solid #2A2A2A;
+  border-left: 3px solid var(--yellow);
+  border-radius: 4px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.info-box li {
+  display: flex; gap: 12px;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.info-box .k {
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--gray);
+  flex: 0 0 80px;
+  padding-top: 2px;
+}
+.info-box .v { color: var(--white); }
+.info-box .v a {
+  color: var(--yellow);
+  text-decoration: none;
+  border-bottom: 1px solid var(--yellow-mid);
+  transition: border-color .15s;
+}
+.info-box .v a:hover { border-color: var(--yellow); }
+
+/* ── footer ── */
+footer {
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--gray-soft);
+  letter-spacing: 0.06em;
+}
+.footer-rule {
+  width: 32px; height: 1px;
+  background: var(--black-3);
+  margin: 0 auto 14px;
+}
+
+/* ── now playing dynamic ── */
+#np-track-name { transition: opacity .4s; }
+</style>
+</head>
+<body>
+
+<div class="hex-bg"></div>
+
+<!-- floating bees -->
+<div class="bee" aria-hidden="true">🐝</div>
+<div class="bee" aria-hidden="true">🐝</div>
+<div class="bee" aria-hidden="true">🐝</div>
+<div class="bee" aria-hidden="true">🐝</div>
+<div class="bee" aria-hidden="true">🐝</div>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="coords">15°44'S · 54°38'W — MT, Brasil</div>
+
+    <div class="now-playing">
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span>tocando agora — <span class="np-track" id="np-track-name">carregando...</span></span>
+    </div>
+
+    <h1 class="name">Bruna<br><span class="name-accent">Gabriele Wüst</span></h1>
+    <p class="role">IA &amp; Modelagem · Ciências Ambientais &amp; Agrárias</p>
+
+    <p class="bio">Especialista em Inteligência Artificial aplicada às Ciências Ambientais e Agrárias. Utiliza técnicas de machine learning, geoprocessamento e sensoriamento remoto para modelagem de paisagens, ecossistemas e dinâmicas territoriais na Amazônia e Cerrado.</p>
+
+    <div class="tags">
+      <span class="tag">Inteligência Artificial</span>
+      <span class="tag">Modelagem ambiental</span>
+      <span class="tag">Geoprocessamento</span>
+      <span class="tag">Sensoriamento remoto</span>
+      <span class="tag">Ciências Agrárias</span>
+      <span class="tag">Biotecnologia</span>
+    </div>
+
+    <p class="section-label">canais de contato</p>
+    <ul class="links">
+      <li>
+        <a href="https://github.com/BrunaWust" target="_blank" rel="noopener">
+          <span class="marker" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.42.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A10.75 10.75 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </span>
+          <span class="link-text">
+            <span class="link-label">GitHub</span>
+            <span class="link-sub">github.com/BrunaWust</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/bruna-gabriele-wust/" target="_blank" rel="noopener">
+          <span class="marker" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+          </span>
+          <span class="link-text">
+            <span class="link-label">LinkedIn</span>
+            <span class="link-sub">in/bruna-gabriele-wust</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="http://lattes.cnpq.br/6535711950071493" target="_blank" rel="noopener">
+          <span class="marker" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5v5c0 1.5 2.5 3.5 6 3.5s6-2 6-3.5v-5"/></svg>
+          </span>
+          <span class="link-text">
+            <span class="link-label">Currículo Lattes</span>
+            <span class="link-sub">lattes.cnpq.br/6535711950071493</span>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <p class="section-label">formação</p>
+    <ul class="info-box">
+      <li>
+        <span class="k">Programa</span>
+        <span class="v">Pós-Graduação em Biotecnologia<br><span style="color:var(--gray); font-size:11.5px;">PPGBIOTEC-DV/PG</span></span>
+      </li>
+      <li>
+        <span class="k">Nível</span>
+        <span class="v">Mestranda</span>
+      </li>
+      <li>
+        <span class="k">Orientador</span>
+        <span class="v">
+          <a href="http://lattes.cnpq.br/3343422205289088" target="_blank" rel="noopener">Prof. Dr. Laercio Sartor ↗</a>
+        </span>
+      </li>
+    </ul>
+
+    <footer>
+      <div class="footer-rule"></div>
+      atualizado em 2026 · feito com 🐝
+    </footer>
+
+  </div>
+</div>
+
+<script>
+const tracks = [
+  "How You Remind Me · Nickelback",
+  "Photograph · Nickelback",
+  "Burn It to the Ground · Nickelback",
+  "Far Away · Nickelback",
+  "Someday · Nickelback",
+  "Animals · Nickelback",
+  "Rockstar · Nickelback",
+  "If Today Was Your Last Day · Nickelback",
+  "Hero · Chad Kroeger",
+  "When We Stand Together · Nickelback",
+];
+
+function pickTrack() {
+  const el = document.getElementById('np-track-name');
+  el.style.opacity = '0';
+  setTimeout(() => {
+    const t = tracks[Math.floor(Math.random() * tracks.length)];
+    el.textContent = t;
+    el.style.opacity = '1';
+  }, 400);
+}
+
+pickTrack();
+setInterval(pickTrack, 12000);
+</script>
+</body>
+</html>
